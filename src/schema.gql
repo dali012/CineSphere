@@ -1,0 +1,72 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type TorrentEntity {
+  id: Int!
+  url: String!
+  hash: String!
+  quality: String!
+  type: String!
+  video_codec: String!
+  bit_depth: String!
+  is_repack: String!
+  audio_channels: String!
+  seeds: Int!
+  peers: Int!
+  size: String!
+  size_bytes: Int!
+  date_uploaded_unix: Int!
+  date_uploaded: String!
+  movieId: Int
+}
+
+type MovieEntity {
+  id: Int!
+  url: String!
+  imdb_code: String!
+  title: String!
+  title_long: String!
+  title_english: String!
+  slug: String!
+  year: Int!
+  rating: Float!
+  description_full: String
+  synopsis: String
+  genres: [String!]!
+  summary: String
+  yt_trailer_code: String
+  language: String!
+  mpa_rating: String
+  background_image: String!
+  background_image_original: String!
+  small_cover_image: String!
+  medium_cover_image: String!
+  large_cover_image: String!
+  state: String!
+  date_uploaded: DateTime!
+  torrents: [TorrentEntity]!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Meta {
+  total: Int!
+  lastPage: Int!
+  currentPage: Int!
+  perPage: Int!
+  prev: Int!
+  next: Int!
+}
+
+type PaginatedResult {
+  data: [MovieEntity!]!
+  meta: Meta!
+}
+
+type Query {
+  findAll(page: Int, perPage: Int): PaginatedResult!
+}
