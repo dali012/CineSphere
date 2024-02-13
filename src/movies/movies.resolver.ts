@@ -7,6 +7,13 @@ import { MovieEntity } from './entities/movie.entity';
 export class MoviesResolver {
   constructor(private readonly moviesService: MoviesService) {}
 
+  /**
+   * A description of the entire function.
+   *
+   * @param {number} page - description of parameter
+   * @param {number} perPage - description of parameter
+   * @return {Promise<PaginatedResult<MovieEntity>>} description of return value
+   */
   @Query(() => PaginatedResult)
   async findAll(
     @Args({ name: 'page', type: () => Int, nullable: true }) page: number = 1,
