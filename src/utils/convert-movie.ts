@@ -1,4 +1,4 @@
-import { YtsMovie } from '@/jobs/types';
+import { YtsMovie } from '../jobs/types';
 
 export function convertToMovieData(movie: YtsMovie) {
   return {

@@ -4,9 +4,9 @@ import { ConfigService } from '@nestjs/config';
 import { YtsMovie, YtsResponse } from './types';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaErrorCode } from './err/prisma-error.code';
-import { PrismaService } from '@/lib/prisma';
-import { AllConfigType } from '@/config/config.type';
-import { convertToMovieData } from '@/utils/convert-movie';
+import { PrismaService } from '../lib/prisma';
+import { convertToMovieData } from '../utils/convert-movie';
+import { AllConfigType } from '../config/config.type';
 
 @Injectable()
 export class MovieJobService {

@@ -1,7 +1,7 @@
 import { registerAs } from '@nestjs/config';
 import { IsString } from 'class-validator';
 import { MovieJobConfigType } from './movie-job.config.type';
-import validateConfig from '@/utils/validate-config';
+import validateConfig from '../../utils/validate-config';
 
 class EnvironmentVariablesValidator {
   @IsString()

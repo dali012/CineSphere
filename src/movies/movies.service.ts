@@ -1,4 +1,4 @@
-import { PrismaService } from '@/lib/prisma';
+import { PrismaService } from '../lib/prisma';
 import { Injectable } from '@nestjs/common';
 import { createPaginator } from 'prisma-pagination';
 import { Prisma } from '@prisma/client';
