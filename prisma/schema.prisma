@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Movie {
+  id                        Int       @id @default(autoincrement())
+  imdb_code                 String    @unique
+  title                     String
+  title_long                String
+  year                      Int
+  rating                    Decimal
+  genres                    String[]
+  summary                   String?   @db.Text
+  yt_trailer_code           String?
+  language                  String
+  background_image          String
+  background_image_original String
+  small_cover_image         String
+  medium_cover_image        String
+  large_cover_image         String
+  state                     String
+  date_uploaded             DateTime  @default(now())
+  torrents                  Torrent[]
+
+  @@map("movies")
+}
+
+model Torrent {
+  id             Int      @id @default(autoincrement())
+  url            String
+  hash           String
+  quality        String
+  type           String
+  video_codec    String
+  bit_depth      String
+  audio_channels String
+  seeds          Int
+  peers          Int
+  size           String
+  size_bytes     Int
+  date_uploaded  DateTime @default(now())
+  Movie          Movie?   @relation(fields: [movieId], references: [id])
+  movieId        Int?
+
+  @@map("torrents")
+}
