@@ -1,8 +1,8 @@
 {
-  "name": "movie-db-yts",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "name": "cinesphere",
+  "version": "1.0.0",
+  "description": "A comprehensive API that provides an extensive collection of movies along with their torrent download links and streaming options. Designed to enhance the movie-watching experience, this API offers easy access to a wide range of films, ensuring users can find and enjoy their favorite content with ease.",
+  "author": "dali012",
   "private": true,
   "license": "MIT",
   "scripts": {
