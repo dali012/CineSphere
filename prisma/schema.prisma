@@ -10,15 +10,21 @@ datasource db {
 
 model Movie {
   id                        Int       @id @default(autoincrement())
+  url                       String
   imdb_code                 String    @unique
   title                     String
   title_long                String
+  title_english             String
+  slug                      String
   year                      Int
   rating                    Decimal
+  description_full          String?   @db.Text
+  synopsis                  String?   @db.Text
   genres                    String[]
   summary                   String?   @db.Text
   yt_trailer_code           String?
   language                  String
+  mpa_rating                String?
   background_image          String
   background_image_original String
   small_cover_image         String
@@ -32,21 +38,30 @@ model Movie {
 }
 
 model Torrent {
-  id             Int      @id @default(autoincrement())
-  url            String
-  hash           String
-  quality        String
-  type           String
-  video_codec    String
-  bit_depth      String
-  audio_channels String
-  seeds          Int
-  peers          Int
-  size           String
-  size_bytes     Int
-  date_uploaded  DateTime @default(now())
-  Movie          Movie?   @relation(fields: [movieId], references: [id])
-  movieId        Int?
+  id                 Int    @id @default(autoincrement())
+  url                String
+  hash               String
+  quality            String
+  type               String
+  video_codec        String
+  bit_depth          String
+  is_repack          String
+  audio_channels     String
+  seeds              Int
+  peers              Int
+  size               String
+  size_bytes         BigInt
+  date_uploaded_unix Int
+  date_uploaded      String
+  Movie              Movie? @relation(fields: [movieId], references: [id])
+  movieId            Int?
 
   @@map("torrents")
+}
+
+model YTS {
+  id                Int @id @default(autoincrement())
+  last_scraped_page Int @default(0)
+
+  @@map("yts_scraped_data")
 }
