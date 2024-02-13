@@ -1,12 +1,12 @@
-import { AllConfigType } from '@/config/config.type';
-import { PrismaService } from '@/lib/prisma';
 import { HttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { YtsMovie, YtsResponse } from './types';
-import { convertToMovieData } from '@/utils/convert-movie';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { PrismaErrorCode } from './err/prisma-error.code';
+import { PrismaService } from '@/lib/prisma';
+import { AllConfigType } from '@/config/config.type';
+import { convertToMovieData } from '@/utils/convert-movie';
 
 @Injectable()
 export class MovieJobService {
@@ -150,6 +150,19 @@ export class MovieJobService {
     return await this.prisma.movie.count();
   }
 
+  private async getTotalLinks(): Promise<number> {
+    return await this.prisma.torrent.count();
+  }
+
+  private async logStatus(): Promise<void> {
+    const totalMovieCount = await this.totalMovieCount();
+    const lastScrapedPage = await this.getLastPageScraped();
+    const totalLinks = await this.getTotalLinks();
+    this.logger.log(`Total movie count: ${totalMovieCount}`);
+    this.logger.log(`Total links: ${totalLinks}`);
+    this.logger.log(`Last scraped page: ${lastScrapedPage}`);
+  }
+
   /**
    * Save scraped movies to the database and log the total movie count.
    *
@@ -159,12 +172,11 @@ export class MovieJobService {
   async saveScrapedMovies(): Promise<void> {
     try {
       const movies = await this.scrapeMoviePage();
+      this.logger.log('Scraping movies...');
       if (movies) {
         await this.saveMoviesToDatabase(movies);
+        await this.logStatus();
         await this.incrementLastPageScraped();
-        const totalMovieCount = await this.totalMovieCount();
-        this.logger.log('Successfully scraped movies');
-        this.logger.log(`Total movie count: ${totalMovieCount}`);
       }
     } catch (error) {
       this.logger.error(error);
