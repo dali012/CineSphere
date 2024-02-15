@@ -34,6 +34,7 @@ model Movie {
   date_uploaded             DateTime  @default(now())
   torrents                  Torrent[]
 
+  @@index([year, imdb_code, title])
   @@map("movies")
 }
 
