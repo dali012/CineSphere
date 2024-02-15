@@ -14,8 +14,8 @@ export class Meta {
   @Field(() => Int)
   perPage: number;
 
-  @Field(() => Int)
-  prev: number;
+  @Field(() => Int, { nullable: true })
+  prev?: number;
 
   @Field(() => Int)
   next: number;
