@@ -58,7 +58,7 @@ type Meta {
   lastPage: Int!
   currentPage: Int!
   perPage: Int!
-  prev: Int!
+  prev: Int
   next: Int!
 }
 
@@ -69,4 +69,6 @@ type PaginatedResult {
 
 type Query {
   findAll(page: Int, perPage: Int): PaginatedResult!
+  findOne(id: Float!): MovieEntity!
+  searchByYear(year: Float!, page: Int, perPage: Int): PaginatedResult!
 }
