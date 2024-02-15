@@ -22,4 +22,19 @@ export class MoviesResolver {
   ) {
     return await this.moviesService.findAll(page, perPage);
   }
+
+  @Query(() => MovieEntity)
+  async findOne(@Args('id') id: number) {
+    return await this.moviesService.findOne(id);
+  }
+
+  @Query(() => PaginatedResult)
+  async searchByYear(
+    @Args('year') year: number,
+    @Args({ name: 'page', type: () => Int, nullable: true }) page: number = 1,
+    @Args({ name: 'perPage', type: () => Int, nullable: true })
+    perPage: number = 20,
+  ) {
+    return await this.moviesService.getByYear(year, page, perPage);
+  }
 }
